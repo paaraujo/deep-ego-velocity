@@ -151,12 +151,11 @@ def train(tag):
 
     # Creating the model
     convnet_params = {
-        'kernel_size': (5, 9),  
-        'dilation': 4,     
-        'stride': 1,
-        'padding': 0,
+        'kernel_size': [(5, 9)],  
+        'dilation': [4],     
+        'stride': [1],
+        'padding': [0],
         'groups': 1,
-        'dropout': 0.,
         'in_channels': 2,
         'channels': [32, 16, 8, 4, 2],
         'input_size': (1, 2, 100, 173)
@@ -285,12 +284,11 @@ def test(tag):
     
     # Creating the model
     convnet_params = {
-        'kernel_size': (5, 9),  
-        'dilation': 4,     
-        'stride': 1,
-        'padding': 0,
+        'kernel_size': [(5, 9)],  
+        'dilation': [4],     
+        'stride': [1],
+        'padding': [0],
         'groups': 1,
-        'dropout': 0.,
         'in_channels': 2,
         'channels': [32, 16, 8, 4, 2],
         'input_size': (1, 2, 100, 173)
@@ -320,7 +318,7 @@ def test(tag):
 
 
 if __name__ == '__main__':
-    # tag = 'A_' + datetime.now().strftime("%d_%b_%Y_%H_%M_%S")
-    # train(tag)
-    tag = 'A_001'
-    test(tag)
+    tag = 'A_' + datetime.now().strftime("%d_%b_%Y_%H_%M_%S")
+    train(tag)
+    # tag = 'A_001'
+    # test(tag)
