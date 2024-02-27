@@ -64,7 +64,7 @@ Detailed descriptions of the scripts, in order of their utilization, are provide
 
 | Script | Description |
 |:----------------:|---------------|
-| [pcd](src/pcd/) | Folder containing C++ scripts to extract the point cloud info from PCD files to binary files. |
+| [pcd](src/mscrad4r/pcd/) | Folder containing C++ scripts to extract the point cloud info from PCD files to binary files. |
 | [sync](src/mscrad4r/sync.py) | Used to sync the radars with the reference. It follows the splits defined in the [sets.json](data/mscrad4r/sets.json) file. |
 | [dataset](src/mscrad4r/dataset.py) | Contains the PyTorch Dataset classes. |
 | [main_2D](src/mscrad4r/main_2D.py) | Used to train and test the 2D models. By default, the test script saves the estimated outputs as CSV file used by the [compare](src/mscrad4r/compare.py) script.|
