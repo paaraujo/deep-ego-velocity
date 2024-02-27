@@ -1,0 +1,24 @@
+{
+  "train": [
+    "URBAN_A0",
+    "URBAN_A1",
+    "URBAN_B0",
+    "URBAN_B1",
+    "URBAN_C0",
+    "URBAN_C1",
+    "URBAN_D0",
+    "URBAN_D1",
+    "URBAN_E0",
+    "URBAN_E1",
+    "URBAN_F0",
+    "URBAN_F1",
+    "URBAN_G0",
+    "URBAN_G1"
+  ],
+  "test": [
+    "URBAN_H0"
+  ],
+  "validation": [
+    "URBAN_H1"
+  ]
+}
