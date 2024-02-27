@@ -60,7 +60,7 @@ with tqdm(total=len(dirs), desc='Syncing data') as pbar:
                     temp = np.abs(ref_time - t)
                     id = np.argmin(temp)
                     if temp[id] < 0.02:
-                        local.append([t, group.loc[:,['x','y','z','vr','snr','rcs']].values.tolist(), ref['speed'].iat[id]])
+                        local.append([t, group.loc[:,['x','y','z','azimuth','elevation','vr','snr','rcs']].values.tolist(), ref['speed'].iat[id]])
                 
                 # Saving text file
                 with open(os.path.join(data, 'synced', d_set, d + '-' + sensor_id + '.txt'), 'w') as fp:
