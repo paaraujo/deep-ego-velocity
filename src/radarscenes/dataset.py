@@ -37,8 +37,9 @@ class RadarDataset(Dataset):
         # Creating unified file to optimize RAM
         split_path = os.path.join(self.path, 'Processed', other_params['split'])
         os.makedirs(split_path, exist_ok=True)
-        _, _, dummy = next(os.walk(split_path))
-        id = len(dummy)
+        _, _, files = next(os.walk(split_path))
+        files_nums = [int(f.split('.')[0].split('_')[-1]) for f in files]
+        id = max(files_nums) + 1 if files_nums else 1
         self.offset_dict = {}
         self.length = 0
         self.unified_file = os.path.join(split_path, f'unified_{id}.txt')
@@ -165,8 +166,9 @@ class SequenceRadarDataset(Dataset):
         # Creating unified file to optimize RAM
         my_path = os.path.join(self.path, 'Processed', other_params['sequence'])
         os.makedirs(my_path, exist_ok=True)
-        _, _, dummy = next(os.walk(my_path))
-        id = len(dummy)
+        _, _, files = next(os.walk(my_path))
+        files_nums = [int(f.split('.')[0].split('_')[-1]) for f in files]
+        id = max(files_nums) + 1 if files_nums else 1
         self.offset_dict = {}
         self.length = 0
         self.unified_file = os.path.join(my_path, f'unified_{id}.txt')
@@ -275,8 +277,9 @@ class SimpleRadarDataset(Dataset):
         # Creating unified file to optimize RAM
         my_path = os.path.join(self.path, 'Processed', other_params['sequence'])
         os.makedirs(my_path, exist_ok=True)
-        _, _, dummy = next(os.walk(my_path))
-        id = len(dummy)
+        _, _, files = next(os.walk(my_path))
+        files_nums = [int(f.split('.')[0].split('_')[-1]) for f in files]
+        id = max(files_nums) + 1 if files_nums else 1
         self.offset_dict = {}
         self.length = 0
         self.unified_file = os.path.join(my_path, f'unified_{id}.txt')

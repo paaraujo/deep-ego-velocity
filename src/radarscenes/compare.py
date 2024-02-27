@@ -30,9 +30,9 @@ plt.rcParams.update({
 def plot(references, kellner_estimations, proposed_estimations):
     # Plotting results
     fig, ax = plt.subplots()
-    ax.plot(kellner_estimations, '.', color='#70AE6E', alpha=1.0, fillstyle='none', label='Kellner\'s Method')
-    ax.plot(proposed_estimations, '.', color='#DC493A', alpha=1.0, fillstyle='none', label='Proposed Method')
-    ax.plot(references, '-', color="#04080F", linewidth=1, label='Reference')
+    ax.plot(kellner_estimations, '.', color='b', alpha=1.0, label='Kellner\'s Method')
+    ax.plot(proposed_estimations, '.', color='r', alpha=1.0, label='Proposed Method')  #fillstyle='none'
+    ax.plot(references, '-', color="#04080F", linewidth=1.5, label='Reference')
     ax.set_xlim([0, len(references)])
     ax.set_xlabel('Samples')
     ax.set_ylabel('m/s')
@@ -61,12 +61,14 @@ def boxplot(unified, names, colors):
 
 def group_boxplot(benchmark, proposed, names, colors):
     fig, ax = plt.subplots(figsize=(6.4,4.0))
-    bplot = ax.boxplot(benchmark, positions=np.array(np.arange(len(benchmark)))*2.0-0.35, widths=0.5, notch=False, vert=False, showfliers=True, patch_artist=True, flierprops={'marker':'.','linestyle':'none','markeredgecolor':'k'})
+    meanpointprops = dict(marker='D', markeredgecolor='black', markerfacecolor='white')
+    flierprops = dict(marker='.', linestyle='none', markeredgecolor='k')
+    bplot = ax.boxplot(benchmark, positions=np.array(np.arange(len(benchmark)))*2.0-0.35, widths=0.5, notch=False, vert=False, showfliers=True, patch_artist=True, showmeans=True, meanprops=meanpointprops, flierprops=flierprops)
     for patch in bplot['boxes']:
         patch.set_facecolor(colors[0])
     for patch in bplot['medians']:
         patch.set_color('k')
-    bplot = ax.boxplot(proposed, positions=np.array(np.arange(len(proposed)))*2.0+0.35, widths=0.5, notch=False, vert=False, showfliers=True, patch_artist=True, flierprops={'marker':'.','linestyle':'none','markeredgecolor':'k'})
+    bplot = ax.boxplot(proposed, positions=np.array(np.arange(len(proposed)))*2.0+0.35, widths=0.5, notch=False, vert=False, showfliers=True, patch_artist=True, showmeans=True, meanprops=meanpointprops, flierprops=flierprops)
     for patch in bplot['boxes']:
         patch.set_facecolor(colors[1])
     for patch in bplot['medians']:
@@ -130,10 +132,14 @@ kellner_estimators = [
 
 # Preparing the proposed model based on the selected sensor
 tags = [
-    'A_001',
+    # 'A_001',
+    'A_S1_24_Feb_2024_21_00_30',
     'B_001',
+    # 'A_S2_24_Feb_2024_21_00_17',
     'C_001',
-    'D_001'
+    # 'A_S3_24_Feb_2024_21_00_24',
+    # 'D_001'
+    'A_S4_24_Feb_2024_21_00_36'
 ]
 
 sensor_ids = [4, 3, 2, 1]
@@ -195,7 +201,7 @@ for sensor_id in sensor_ids:
 
         # Plotting results
         # plot(references, kellner_estimations[:, 0], proposed_df.loc[:, 'est'])
-        # print(f"Kellner's method mean inference time: {np.mean(kellner_inference_times):.6f} secs.\n")
+        print(f"Kellner's method mean inference time: {np.mean(kellner_inference_times):.6f} secs.\n")
 
         # Storing errors
         kellner_errors.extend(np.square(references - kellner_estimations[:, 0]).tolist())
@@ -221,12 +227,12 @@ for sensor_id in sensor_ids:
 
     # Local plots
     # unified = np.concatenate((np.sqrt(kellner_errors).reshape(-1,1), np.sqrt(proposed_errors).reshape(-1,1)), axis=1)
-    # colors = ['#70AE6E', '#DC493A']
+    # colors = ['b', 'r']
     # names = ["Kellner's Method", "Proposed Method"]
     # boxplot(unified, names, colors)
     # violinplot(unified, names, colors)
 
 # Creating group boxplot
-colors = ['#70AE6E', '#DC493A']
+colors = ['b', 'r']
 names = [f"Sensor {i}" for i in sensor_ids]
 group_boxplot(all_kellner_errors, all_proposed_errors, names, colors)

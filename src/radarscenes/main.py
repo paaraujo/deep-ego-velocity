@@ -2,6 +2,11 @@
 """
 
 import os
+root = os.path.join('/mnt', 'sda', 'paulo', 'delta')
+
+import sys
+sys.path.insert(0, os.path.join(root, 'src'))
+
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -18,7 +23,7 @@ from datetime import datetime
 from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
 from torchinfo import summary
-from network import RadarPCL
+from utils.network import RadarNet
 from dataset import RadarDataset, SequenceRadarDataset
 
 
@@ -165,7 +170,7 @@ def train(tag):
     }
     epochs = 500
     sensor_id = 2
-    model = RadarPCL(convnet_params, linearnet_params)
+    model = RadarNet(convnet_params, linearnet_params)
     model.to(device)
     stats = summary(model, input_size=[convnet_params['input_size']], device=device)
 
@@ -185,7 +190,7 @@ def train(tag):
     # hist(train_set.speeds, bins=14, res=2)
 
     map_params = {'px':convnet_params['input_size'][2], 'py':convnet_params['input_size'][3], 'rx':100, 'ry':87 * 2}
-    augment_params = {'augment': True, 'delta_z': 15.0}
+    augment_params = {'augment': False, 'delta_z': 15.0}
     other_params = {'split': 'validation', 'sensor_id': sensor_id, 'in_channels': convnet_params['in_channels'], 'device': device}
     valid_set = RadarDataset(os.path.join(root, 'data', 'radarscenes', 'data'), map_params, augment_params, other_params)
     # hist(valid_set.speeds, bins=14, res=2)
@@ -213,6 +218,7 @@ def train(tag):
 
     # Training model    
     loss_fn = nn.HuberLoss(delta=0.1)
+    # loss_fn = nn.MSELoss()
     optimizer = optim.SGD(model.parameters(), momentum=0.9, lr=1e-3, weight_decay=1e-5)
     scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'min', patience=50)
 
@@ -296,7 +302,7 @@ def test(tag):
     linearnet_params = {
         'channels': [256, 128, 64, 32, 16, 8, 4, 2, 1],
     }
-    model = RadarPCL(convnet_params, linearnet_params)
+    model = RadarNet(convnet_params, linearnet_params)
     model.to(device)
     sensor_id = 2
 
@@ -308,7 +314,7 @@ def test(tag):
     # Saving results
     map_params = {'px':convnet_params['input_size'][2], 'py':convnet_params['input_size'][3], 'rx':100, 'ry':87 * 2}
     augment_params = {'augment': False, 'delta_z': 15.0}
-    other_params = {'sequence': 'sequence_153', 'sensor_id': sensor_id, 'in_channels': 2, 'device': device}
+    other_params = {'sequence': 'sequence_93', 'sensor_id': sensor_id, 'in_channels': 2, 'device': device}
     test_set = SequenceRadarDataset(os.path.join(root, 'data', 'radarscenes', 'data'), map_params, augment_params, other_params)
     preview_loader = DataLoader(test_set, batch_size=1, shuffle=False, pin_memory=True, num_workers=4)
     path = os.path.join(root, 'checkpoints', 'radarscenes', tag, 'sequences', other_params['sequence']) 
@@ -318,7 +324,7 @@ def test(tag):
 
 
 if __name__ == '__main__':
-    tag = 'A_' + datetime.now().strftime("%d_%b_%Y_%H_%M_%S")
+    tag = 'A_S2_' + datetime.now().strftime("%d_%b_%Y_%H_%M_%S")
     train(tag)
-    # tag = 'A_001'
+    # tag = 'A_S2_24_Feb_2024_21_00_17'
     # test(tag)

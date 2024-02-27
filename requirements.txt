@@ -1,5 +1,6 @@
 h5py==3.9.0
 matplotlib==3.7.2
+NavPy==1.0
 numpy==1.24.4
 opencv_python==4.8.0.76
 pandas==2.0.3
