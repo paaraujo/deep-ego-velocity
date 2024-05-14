@@ -73,6 +73,12 @@ Detailed descriptions of the scripts, in order of their utilization, are provide
 
 # Citation
 If you find this repository helpful, please consider citing:
-<!-- ```bibtex
-
-``` -->
+```bibtex
+@article{de2024towards,
+  title={Towards Land Vehicle Ego-Velocity Estimation using Deep Learning and Automotive Radars},
+  author={De Araujo, Paulo Ricardo Marques and Noureldin, Aboelmagd and Givigi, Sidney},
+  journal={IEEE Transactions on Radar Systems},
+  year={2024},
+  publisher={IEEE}
+}
+```
