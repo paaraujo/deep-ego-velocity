@@ -1,6 +1,6 @@
 # Overview
 
-This repository contains the code used for the paper [Towards Land Vehicle Ego-Velocity Estimation using Deep Learning and Automotive Radars](https://ieeexplore.ieee.org/abstract/document/10506480). The paper proposes a deep learning framework for estimating ego-velocity of land vehicles equipped with FMCW radars.
+This repository contains the code used for the paper [Toward Land Vehicle Ego-Velocity Estimation using Deep Learning and Automotive Radars](https://ieeexplore.ieee.org/abstract/document/10506480). The paper proposes a deep learning framework for estimating ego-velocity of land vehicles equipped with FMCW radars.
 
 ![radarscenes example](assets/radarscenes_example.png)
 
@@ -74,8 +74,8 @@ Detailed descriptions of the scripts, in order of their utilization, are provide
 # Citation
 If you find this repository helpful, please consider citing:
 ```bibtex
-@article{de2024towards,
-  title={Towards Land Vehicle Ego-Velocity Estimation using Deep Learning and Automotive Radars},
+@article{de2024toward,
+  title={Toward Land Vehicle Ego-Velocity Estimation using Deep Learning and Automotive Radars},
   author={De Araujo, Paulo Ricardo Marques and Noureldin, Aboelmagd and Givigi, Sidney},
   journal={IEEE Transactions on Radar Systems},
   year={2024},
